@@ -17,5 +17,5 @@ end
 end
 
 # Guarda el reporte en el formato que espera Codecov
-coverage = process_folder()
+coverage = process_folder("../src")
 LCOV.writefile("lcov.info", coverage)
