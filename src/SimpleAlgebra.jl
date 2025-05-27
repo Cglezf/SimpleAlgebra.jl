@@ -1,6 +1,6 @@
 module SimpleAlgebra
-using Logging
-global_logger(ConsoleLogger(stderr, Logging.Info))
+using Logging: ConsoleLogger, global_logger, Info
+global_logger(ConsoleLogger(stderr, Info))
 
 include("Arithmetic.jl")
 using .Arithmetic
