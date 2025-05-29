@@ -1,6 +1,6 @@
 name = "SimpleAlgebra"
 uuid = "bd5eb9d8-9d4e-48e6-8956-b66982e60410"
-version = "1.0.0-DEV"
+version = "1.0.0"
 authors = ["sglez"]
 
 [deps]

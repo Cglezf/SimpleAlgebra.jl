@@ -5,19 +5,21 @@
 [![Build Status](https://github.com/Cglezf/SimpleAlgebra.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/Cglezf/SimpleAlgebra.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/Cglezf/SimpleAlgebra.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Cglezf/SimpleAlgebra.jl)
 
-SimpleAlgebra es un módulo de formación en Julia que introduce conceptos fundamentales del Julia Way, como el múltiple despacho, tipos definidos por el usuario (struct), y la composición de funciones algebraicas con buenas prácticas de desarrollo profesional.
+---
 
-⸻
+SimpleAlgebra.jl es una biblioteca minimalista en Julia para realizar operaciones aritméticas básicas sobre estructuras escalares definidas por el usuario. Utiliza múltiples dispatch, tipos paramétricos y validación segura, respetando el estilo idiomático de Julia.
 
-## Instalación
+---
+
+# Instalación
 
 pkg> add path/to/SimpleAlgebra
 
-⸻
+---
 
-## Uso Básico
+# Uso Básico
 
-```{julia}
+```julia
 using SimpleAlgebra
 
 x = ScalarOp(4.0)
@@ -29,65 +31,41 @@ mul(x, y)      # ScalarOp(8.0)
 div_safe(x, y) # ScalarOp(2.0)
 ```
 
-## Estructura
+---
 
-```{julia}
-struct ScalarOp
-    value::Float64
+# API
+
+```julia
+struct ScalarOp{T<:Real}
+    x::T
+    y::T
 end
 ```
 
-ScalarOp es un tipo ligero que envuelve un escalar y permite realizar operaciones aritméticas mediante funciones separadas, con despacho basado en tipos.
+• add(a::ScalarOp, b::ScalarOp) → suma componente a componente
+• sub(a::ScalarOp, b::ScalarOp) → resta segura
+• mul(a::ScalarOp, b::ScalarOp) → multiplicación
+• div_safe(a::ScalarOp, b::ScalarOp) → división segura con validación de cero
+• ==(a::ScalarOp, b::ScalarOp) → comparación exacta
+• isapprox(a::ScalarOp, b::ScalarOp) → comparación aproximada
 
-⸻
+---
 
-## API
+# Principios del diseño
 
-add(a::ScalarOp, b::ScalarOp) -> ScalarOp
+• Múltiple despacho: operaciones diferenciadas por tipos.
+• Separación de datos y funciones: el tipo no contiene lógica.
+• Inmutabilidad: ScalarOp es inmutable por defecto.
+• Desacoplamiento de operadores: no se sobrecargan +, -, *, / en esta versión para mantener claridad.
 
-Suma dos objetos ScalarOp y devuelve el resultado como ScalarOp.
+---
 
-sub(a::ScalarOp, b::ScalarOp) -> ScalarOp
+# Contribución
 
-Resta dos objetos ScalarOp. Resta b de a y devuelve el resultado como ScalarOp.
+Este paquete es abierto a mejoras, sugerencias y nuevas funciones. Puedes abrir un Pull Request o reportar un Issue.
 
-mul(a::ScalarOp, b::ScalarOp) -> ScalarOp
+---
 
-Multiplica dos ScalarOp y devuelve el resultado como ScalarOp.
-
-div_safe(a::ScalarOp, b::ScalarOp) -> ScalarOp
-
-Realiza una división segura. Si b es cero, lanza un DomainError.
-
-⸻
-
-## Filosofía Julia Way
-
- • Múltiple despacho: cada función está definida en términos de los tipos de sus argumentos.
- • Separación de datos y funciones: ScalarOp no tiene métodos adjuntos.
- • Evitar mutabilidad innecesaria: ScalarOp es inmutable.
- • No usar operadores sobrecargados aún: se usa add, sub, etc., para mantener claridad didáctica.
-
-⸻
-
-## Próximo paso: Tipos paramétricos
-
-```{julia}
-struct ScalarOp{T<:Number}
-    value::T
-end
-```
-
-Esto permitirá trabajar con Int, Float32, BigFloat, etc., de forma genérica.
-
-⸻
-
-## Contribución
-
-Puedes abrir un Pull Request o sugerir mejoras mediante Issues. Este paquete forma parte del proyecto de formación en ciencia de datos con Julia.
-
-⸻
-
-## Licencia
+# Licencia
 
 MIT © 2025 Simon Gonzalez
