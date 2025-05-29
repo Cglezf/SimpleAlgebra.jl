@@ -4,7 +4,7 @@ using Documenter
 DocMeta.setdocmeta!(SimpleAlgebra, :DocTestSetup, :(using SimpleAlgebra); recursive=true)
 
 makedocs(;
-    modules=[SimpleAlgebra],
+    modules=[SimpleAlgebra, SimpleAlgebra.Arithmetic],
     authors="sglez",
     sitename="SimpleAlgebra.jl",
     format=Documenter.HTML(;
@@ -15,4 +15,9 @@ makedocs(;
     pages=["Home" => "index.md"],
 )
 
-deploydocs(; repo="github.com/Cglezf/SimpleAlgebra.jl", devbranch="main")
+deploydocs(;
+    repo="github.com/Cglezf/SimpleAlgebra.jl",
+    devbranch="main",
+    push_preview=true,
+    deploy_config=Documenter.GitHubActions(),
+)
