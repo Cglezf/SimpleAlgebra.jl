@@ -10,5 +10,5 @@ Documentation for [SimpleAlgebra](https://github.com/Cglezf/SimpleAlgebra.jl).
 ```
 
 ```@autodocs
-Modules = [SimpleAlgebra]
+Modules = [SimpleAlgebra, SimpleAlgebra.Arithmetic]
 ```
