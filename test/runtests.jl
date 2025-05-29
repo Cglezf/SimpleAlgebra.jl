@@ -1,23 +1,25 @@
 using SimpleAlgebra
 using Test
-using Coverage
 
 include("arithmetic_test.jl")
+using .ArithmeticTest
 
-@testset "SimpleAlgebra sums" begin
-    @test add(ScalarOp(2, 3)) == 5
-    @test add(ScalarOp(0, 0)) == 0
-    @test add(ScalarOp(-1, 1)) == 0
-    @test add(ScalarOp(-1, -1)) == -2
-    @test add(ScalarOp(0.5, 0.5)) == 1.0
-    @test add(ScalarOp(1//2, 2//3)) == 7//6
-end
-@testset "SimpleAlgebra types" begin
-    @test isapprox(add(ScalarOp(0.1, 0.2)), 0.3; atol=1e-10)
-    @test_throws MethodError add(1 + 2im, 3 + 4im)
-    @test_throws MethodError add(1, 0 + 0im, 2.0 - 1im)
+@testset "SimpleAlgebra Tests" begin
+    test_arithmetic()
 end
 
-# Guarda el reporte en el formato que espera Codecov
-coverage = process_folder("../src")
-LCOV.writefile("lcov.info", coverage)
+try
+    using Coverage
+    # Guarda el reporte en el formato que espera Codecov
+    coverage = Coverage.process_folder(joinpath(@__DIR__, "../src"))
+    LCOV.writefile("lcov.info", coverage)
+catch err
+    @warn "Coverage failed" exception = (err, catch_backtrace())
+end
+
+# Borrar archivos .cov después de generar lcov.info en los subdirectorios
+for (root, dirs, files) in walkdir(joinpath(@__DIR__, ".."))
+    for file in files
+        endswith(file, ".cov") && rm(joinpath(root, file); force=true)
+    end
+end

@@ -1,3 +1,4 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
 SimpleAlgebra = "bd5eb9d8-9d4e-48e6-8956-b66982e60410"
